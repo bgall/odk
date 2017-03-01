@@ -1,6 +1,6 @@
 # odk
 
-A package for convenient analysis and presentation of data from the Open Data Kit (ODK) survey software. This is inteded to serve as an R alternative to the Stata program for basic ODK question types [odkmeta](https://github.com/PovertyAction/odkmeta).
+A package for convenient analysis in R of data from the Open Data Kit (ODK) survey ecosystem. Primarily an R-based alternative to the Stata program [odkmeta](https://github.com/PovertyAction/odkmeta).
 
 ## Development
 
