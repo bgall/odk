@@ -1,18 +1,16 @@
 # odk
 
-A package for convenient analysis in R of data from the Open Data Kit (ODK) survey ecosystem. Primarily an R-based alternative to the Stata program [odkmeta](https://github.com/PovertyAction/odkmeta).
+A package for convenient data analysis and survey documentation in R for users of the Open Data Kit (ODK) survey ecosystem. Primarily an R-based alternative to the Stata program [odkmeta](https://github.com/PovertyAction/odkmeta).
+
+## Project Background
+
+Many ODK users often wish to produce a codebook allowing for easy examination of a survey's response option values, response option value labels, variable names, and skip logic. While Stata users may rely on [odkmeta](https://github.com/PovertyAction/odkmeta) to produce codebooks, R users often must manually produce codebooks. This can leads to transcription errors, spelling errors, and is often both tedious and time-consuming. Furthermore, while tools in the ODK ecosystem (such as [ODK Aggregate](https://opendatakit.org/use/aggregate/) or [ODK Briefcase](https://opendatakit.org/use/briefcase/)) require the survey to be in an [XForm](https://en.wikipedia.org/wiki/XForms), many users do not possess the skill or time to create their own XForms from scratch Instead, they typically create a specifically structured a .xlsx file containing the survey and use [XLSForm](http://xlsform.org/) to produce an XForm. This package automates the production of codebooks by enabling users of XLSForm to convert their .xslx files directly into codebooks in two file formats: a .docx file editable in Microsoft Word (or open source alternatives) and a .csv file editable in most text editors.
+
+Additionally, data managers and analysts sometimes must work with the raw survey output in the .xml files stored on tablet rather than the .csv files ODK tools such as ODK Aggregate produce when exporting data. This package automates the conversion of these .xml files into .csv files more readily analyzed in conventional statistic software.
 
 ## Development
 
-Short-term ambitions:
+The package will ultimately comprise two different scripts:
 
-- Reading the .XML files from ODK Briefcase into an R data frame with correct classes, option of including value labels, and removal of extraneous fields.
-- Producing easy-to-read variables lists from .xlsx files used with XLSForm to produce XForms.
-- Functionality will apply to the following question types: decimal, start, end, integer, text, select_one, select_multiple, calculate
-
-Long-term ambitions:
-
-- Create codebooks from either XML or .CSV files from ODK Aggregate or ODK Briefcase and ODK .xlsx file (or XForm).
-- Add additional question types.
-
-
+- **odk_to_codebook** enables conversion of .xslx files used to produce Xforms via XLSForm
+- **xml_to_csv** enables conversion of .xml files to .csv files
