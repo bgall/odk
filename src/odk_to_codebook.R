@@ -36,7 +36,7 @@ odk_to_codebook <- function(excel_file, docx_out) {
   
   # Keep only variables needed for producing codebook,
   # rename the variables to more sensical names
-  question <- question %>% select(type = type,
+  question <- question %>% dplyr::select(type = type,
                                   variable = name,
                                   question = label,
                                   relevant)
@@ -73,7 +73,7 @@ odk_to_codebook <- function(excel_file, docx_out) {
   # - end
   # - today
   # - text
-  question <- question %>% mutate(select_one = as.numeric(grepl(pattern = "^select_one", x = type)),
+  question <- question %>% dplyr::mutate(select_one = as.numeric(grepl(pattern = "^select_one", x = type)),
                                   select_multiple = as.numeric(grepl(pattern = "^select_multiple", x = type)),
                                   date = as.numeric(grepl(pattern = "^date$", x = type)),
                                   start = as.numeric(grepl(pattern = "^start$", x = type)),
@@ -117,7 +117,7 @@ odk_to_codebook <- function(excel_file, docx_out) {
   # note: the starts_with() function addresses an issue where
   # dplyr thinks label::English indicate we should use
   # a function named "English" in the "label" package.
-  choices <- choices %>% select(choice_list = list_name,
+  choices <- choices %>% dplyr::select(choice_list = list_name,
                                 val = name,
                                 val_label = starts_with("label::English"))
   
@@ -127,7 +127,7 @@ odk_to_codebook <- function(excel_file, docx_out) {
   # value for the response that appears in the
   # .csv file containing the survey results
   # and its corresponding label.
-  choices <- choices %>% mutate(val_and_label = paste0(val, ". ", val_label))
+  choices <- choices %>% dplyr::mutate(val_and_label = paste0(val, ". ", val_label))
   
   # For each value in choice_list, we want a single cell
   # containing all of the values in the val_and_label 
@@ -159,7 +159,7 @@ odk_to_codebook <- function(excel_file, docx_out) {
   #*********************************************
   
   # Add in the values and their labels
-  question <- left_join(question, choices, by = "choice_list")
+  question <- dplyr::left_join(question, choices, by = "choice_list")
   
   # Move the values and their labels to response_choice column
   question$response_choices[question$select_multiple == 1 | question$select_one == 1] <- question$val_and_label[question$select_multiple == 1 | question$select_one == 1]
@@ -200,7 +200,7 @@ odk_to_codebook <- function(excel_file, docx_out) {
   
   # Drop any 'begin group' and 'end group', rows since
   # these do not contain any substantive information
-  codebook <- question %>% filter(type != "begin group" & type != "end group")
+  codebook <- question %>% dplyr::filter(type != "begin group" & type != "end group")
   
   # Add a note about the question being select multiple before the 
   # response choices for **select_multiple questions**
@@ -235,7 +235,7 @@ odk_to_codebook <- function(excel_file, docx_out) {
   # write.csv(codebook, as.character(csv_out))
   
   # Save the codebook as a Word table
-  docx() %>% addFlexTable(codebook %>% FlexTable()) %>% writeDoc(file = as.character(docx_out))
+  docx() %>% XML::addFlexTable(codebook %>% XML::FlexTable()) %>% XML::writeDoc(file = as.character(docx_out))
   
 } # this closes out the odk_to_codebook() function
 
