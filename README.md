@@ -14,3 +14,5 @@ The package will ultimately comprise two different scripts:
 
 - [**odk_to_codebook**](src/odk_to_codebook.R) enables conversion of .xslx files used to produce XForms via XLSForm
 - **xml_to_csv** enables conversion of .xml files to .csv files
+
+Currently there is an additional file that provides some small functions that are useful in the analysis of ODK files. These were defined for a specific project and may require some tweaking for your particular use-case.
